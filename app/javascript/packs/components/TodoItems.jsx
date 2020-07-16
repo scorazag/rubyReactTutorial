@@ -1,13 +1,24 @@
 // app/javascript/packs/components/TodoItems.jsx
 import React from 'react'
+import PropTypes from 'prop-types'
 
 class TodoItems extends React.Component {
   constructor(props) {
     super(props)
+    this.handleClick = this.handleClick.bind(this)
+  }
+  handleClick() {
+    this.props.toggleCompletedTodoItems()
   }
   render() {
     return (
       <>
+        <hr />
+        <button className="btn btn-outline-primary btn-block mb-3" onClick={this.handleClick}>
+          {this.props.hideCompletedTodoItems
+            ? `Show Completed Items`
+            : `Hide Completed Items `}
+        </button>
         <div className="table-responsive">
           <table className="table">
             <thead>
@@ -27,3 +38,8 @@ class TodoItems extends React.Component {
   }
 }
 export default TodoItems
+
+TodoItems.propTypes = {
+  toggleCompletedTodoItems: PropTypes.func.isRequired,
+  hideCompletedTodoItems: PropTypes.bool.isRequired,
+}
